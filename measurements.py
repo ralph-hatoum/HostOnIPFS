@@ -13,6 +13,7 @@ Strategy :
 from host import upload_file_to_ipfs, get_cid_from_daemon_response
 import requests
 import time
+import os
 
 api_url = 'http://127.0.0.1:5001/api/v0/add'
 gateway_url = "https://ipfs.io/ipfs/"
@@ -29,7 +30,12 @@ def create_file(file_name, file_size):
     Returns:
     None
     """
-    with open(file_name, 'w') as f:
+    # We will create a files_generated directory to stores generated files
+    # The directory is in the .gitignore to avoid pushing unnecessary stuff to github
+
+    os.system("mkdir -p files_generated")
+
+    with open("./files_generated/"+file_name, 'w') as f:
         f.write("0"*file_size)
 
 def request_from_gateway(gateway_url, CID):
@@ -61,7 +67,7 @@ def upload_and_make_available_at_gateway(file_name, file_size, gateway_url, api_
     - str : CID of file uploaded
     """
     create_file(file_name,file_size)
-    server_response = upload_file_to_ipfs(file_name,api_url)
+    server_response = upload_file_to_ipfs("./files_generated/"+file_name,api_url)
     CID = get_cid_from_daemon_response(server_response)
     response_code = request_from_gateway(gateway_url, CID).status_code
     while response_code!=200:
@@ -76,8 +82,8 @@ def upload_and_make_available_at_gateway(file_name, file_size, gateway_url, api_
 
 def main():
 
-    file_name = ""
-    file_size = ""
+    file_name = "test.txt"
+    file_size = 1024
 
     # Upload and make available at gateway 
     CID = upload_and_make_available_at_gateway(file_name, file_size, gateway_url, api_url)
