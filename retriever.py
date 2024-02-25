@@ -2,7 +2,7 @@ import requests
 import time
 import json
 
-URL = "https://ipfs.io/ipfs/QmNyeG7EwT3EaHThuYuogPvhtJW8nMmzM1PwycipxwzHaF"
+URL = "https://ipfs.io/ipfs/QmNQBifyRLitkRJkmEKr3zrsotYes9MUZkL8iAuhVwrmwU"
 
 while True:
     print("Requesting ...")

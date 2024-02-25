@@ -78,8 +78,8 @@ def get_all_paths(directory):
 
     return all_paths
 
-images = get_all_paths("images")
+# images = get_all_paths("images")
 
-CIDs = upload_images_to_ipfs(images, api_url)
+# CIDs = upload_images_to_ipfs(images, api_url)
 
-print(CIDs)
+# print(CIDs)
